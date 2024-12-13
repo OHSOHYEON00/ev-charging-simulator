@@ -3,6 +3,7 @@ import NumberInput from "./NumberInput";
 import { EFormInput } from "types";
 import Button from "./Button";
 import Label from "./Label";
+import Line from "./Line";
 
 interface TItem {
   id: number;
@@ -95,7 +96,7 @@ const DynamicList = () => {
           deleteItem={deleteItem}
         />
       ))}
-      <div className="col-span-full drop-shadow-sm border-box border "></div>
+      <Line />
       <Button title="Add" onClick={addItem} type="submit" />
     </section>
   );

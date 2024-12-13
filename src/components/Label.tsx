@@ -1,5 +1,6 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
+import Line from "./Line";
 
 export interface PLabel {
   name: string;
@@ -11,10 +12,10 @@ const Label = ({ name, labelClassname = "", isHeader = true }: PLabel) => {
   return (
     <div className="">
       {isHeader && <span className="mr-1"> * </span>}
-      <label className={twMerge("font-medium", labelClassname)}>{name}</label>
-      {isHeader && (
-        <div className="my-4 col-span-full drop-shadow-sm border-box border "></div>
-      )}
+      <label className={twMerge("font-medium pr-2", labelClassname)}>
+        {name}
+      </label>
+      {isHeader && <Line />}
     </div>
   );
 };
