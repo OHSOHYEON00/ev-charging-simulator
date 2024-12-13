@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 module.exports = {
   entry: path.resolve(__dirname, "../src/index.tsx"),
@@ -18,7 +19,11 @@ module.exports = {
           loader: "babel-loader",
           options: {
             targets: "defaults",
-            presets: [["@babel/preset-env"], ["@babel/preset-react"]],
+            presets: [
+              ["@babel/preset-env"],
+              ["@babel/preset-react"],
+              ["@babel/preset-typescript"],
+            ],
           },
         },
       },
@@ -42,12 +47,18 @@ module.exports = {
   },
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
-    modules: [path.resolve(__dirname, "src"), "node_modules"],
+    modules: [path.resolve(__dirname, "../src"), "node_modules"],
     preferRelative: true,
+  },
+  devServer: {
+    hot: true, // HMR 활성화
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "../public/index.html"),
     }),
+    new ReactRefreshWebpackPlugin(), // React Refresh 활성화
   ],
 };
+
+// webpack.config.js

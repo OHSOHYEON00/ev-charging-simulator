@@ -1,12 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{ts,tsx,html}'],
+  content: ["./src/**/*.{ts,tsx,html}"],
   theme: {
     extend: {
       colors: {
-        'basic-white': '#F4F6FA',
-        'button-bg': '#2E3239',
-        'button-text': '#8C8E93',
+        box: "rgb(226 232 240)",
       },
     },
   },
