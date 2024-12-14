@@ -1,14 +1,17 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
-import { EFormInput } from "types";
-import Label, { PLabel } from "./Label";
+import { IFormInput, IFormInputKeys } from "types";
+import Label, { PLabel } from "../Label";
+import { UseFormRegister } from "react-hook-form";
 
 interface NumberInputProps extends Partial<PLabel> {
   suffix?: string;
-  key: EFormInput;
+  id: IFormInputKeys;
   defaultValue?: number;
   disable?: boolean;
   classNames?: string;
+  register: UseFormRegister<IFormInput>;
+  errorName?: string;
 }
 
 const NumberInput = ({
@@ -17,6 +20,9 @@ const NumberInput = ({
   disable = false,
   suffix,
   classNames,
+  register,
+  id,
+  errorName,
 }: NumberInputProps) => {
   return (
     <div
@@ -33,6 +39,20 @@ const NumberInput = ({
           defaultValue={defaultValue}
           type="number"
           disabled={disable}
+          {...register(id, {
+            required: true,
+            validate: (
+              item:
+                | number
+                | { id: number; value: number }
+                | { id: number; value: number }[]
+            ) =>
+              Array.isArray(item)
+                ? ""
+                : typeof item === "object"
+                ? item.value > 0 || `${errorName}`
+                : item > 0 || `${errorName}`,
+          })}
         />
         {suffix && <span className="ml-1">{suffix}</span>}
       </div>

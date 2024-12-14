@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         box: "rgb(226 232 240)",
+        button: "rgb(59 130 246)",
       },
     },
   },

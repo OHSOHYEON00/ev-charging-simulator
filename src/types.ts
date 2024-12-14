@@ -5,6 +5,28 @@ export enum EFormInput {
   "chargingPower" = "chargingPower",
 }
 
+export enum EFormKeyName {
+  "chargingPoints" = "Charge point",
+  "arrivalProbability" = "Arrival Probability Multiplier",
+  "carConsumption" = "Car Consumption",
+  "chargingPower" = "Charging power",
+}
+
+
+export type IFormInputKeys =
+  | keyof IFormInput
+  | `chargingPoints.${number}` // chargingPoints 배열의 항목
+  | `chargingPoints.${number}.value`
+  | `chargingPoints.${number}.id`
+  | `chargingPower.${number}` // chargingPower 배열의 항목
+  | `chargingPower.${number}.value`
+  | `chargingPower.${number}.id`;
+
 export type IFormInput = {
-  [key in EFormInput]: number;
+  chargingPoints: Array<{ id: number; value: number }>;
+  arrivalProbability: number;
+  carConsumption: number;
+  chargingPower: Array<{ id: number; value: number }>;
 };
+
+export const DEFAULT_POWER = 11;

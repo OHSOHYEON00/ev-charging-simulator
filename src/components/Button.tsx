@@ -13,7 +13,7 @@ const Button = ({ title, className, type = "basic", ...props }: PButton) => {
         "text-center",
         `${
           type === "submit" &&
-          "bg-blue-500 text-slate-50 border rounded-lg w-[70px] p-1 border-box"
+          "bg-button text-slate-50 border rounded-lg w-[70px] p-1 border-box"
         }`,
         className
       )}
