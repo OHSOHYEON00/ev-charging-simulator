@@ -86,6 +86,43 @@ const useCalculate = ({ runningHour = 24 }: { runningHour?: number }) => {
     []
   );
 
+  /** Charging Insighes Table */
+  interface IChartItem {
+    name: string;
+    ce: number; // amount of charging event
+    mp: number; // actual max power demand
+    ec: number; // energy consumed
+  }
+
+  const nameList = [
+    {
+      name: "daily",
+      multi: 1,
+    },
+    {
+      name: "weekly",
+      multi: 7,
+    },
+    {
+      name: "monthly",
+      multi: 30,
+    },
+  ];
+
+  const mp = totalPointWithPower.reduce(
+    (acc, cur) => acc + cur.point * cur.power,
+    0
+  );
+
+  const tableData: IChartItem[] = nameList.map(({ name, multi }) => {
+    return {
+      name,
+      ce: chargingEvents * multi,
+      mp: mp * multi,
+      ec: totalEnergy * multi,
+    };
+  });
+
   return {
     chargingEvents: chargingEvents,
     totalEnergy: totalEnergy,
@@ -93,7 +130,7 @@ const useCalculate = ({ runningHour = 24 }: { runningHour?: number }) => {
     chargingValueTable: calculatePowerDistribution(),
     inputInfo: {
       totalPointWithPower,
-      carConsumption: data.carConsumption,
+      carConsumption: chargingEvents,
       arrivalMulti: carArrivals,
     },
     dailyPerformance: {
@@ -104,6 +141,7 @@ const useCalculate = ({ runningHour = 24 }: { runningHour?: number }) => {
       })),
       totalEnergy: formatNumberWithCommas(totalEnergy),
     },
+    tableData,
   };
 };
 

@@ -17,9 +17,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.54.0",
+    "recharts": "2.2.0",
     "tailwind-merge": "^2.5.5"
   },
   "devDependencies": {
+    "@types/recharts": "^1.8.29",
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
     "@babel/preset-react": "^7.26.3",
