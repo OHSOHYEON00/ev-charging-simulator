@@ -39,22 +39,29 @@ const Inputs = () => {
     setData(data);
   };
 
-  const errorNameList: (keyof typeof EFormKeyName)[] = Object.keys(
-    errors
-  ) as (keyof typeof EFormKeyName)[];
+  const errorList = (Object.keys(errors) as (keyof typeof EFormKeyName)[]).map(
+    (err) => ({ name: err, type: errors[err]?.type })
+  );
 
+  console.log("errors", errorList);
   return (
     <section>
       <div className="font-semibold text-2xl mb-4">Input parameters</div>
-      {errorNameList.length > 0 && (
+      {errorList.length > 0 && (
         <div className="text-red-500 mb-12">
-          {errorNameList.map((name, index) => (
-            <span key={name} role="alert" className="mr-1 ">
-              {EFormKeyName[name]}
-              {index < errorNameList.length - 1 && ","}
-            </span>
-          ))}
-          must be greater than 0.
+          {errorList.map((err, index) => {
+            if (err.type === "min" || err.type === "max ") {
+            }
+            return (
+              <div key={err.name} role="alert" className="mr-1 ">
+                {EFormKeyName[err.name]}
+                {index < errorList.length - 1 && ","}
+                {err.type === "min" || err.type === "max"
+                  ? `must be between 20 and 200.`
+                  : "must be greater than 0."}
+              </div>
+            );
+          })}
         </div>
       )}
 
@@ -81,6 +88,10 @@ const Inputs = () => {
               suffix={"%"}
               register={register}
               errorName={EFormKeyName["arrivalProbability"]}
+              addionalRules={{
+                min: 20,
+                max: 200,
+              }}
             />
           </div>
         </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 import { IFormInput, IFormInputKeys, TFormDynamicInput } from "types";
 import Label, { PLabel } from "../Label";
-import { UseFormRegister } from "react-hook-form";
+import { RegisterOptions, UseFormRegister } from "react-hook-form";
 
 interface NumberInputProps extends Partial<PLabel> {
   suffix?: string;
@@ -12,6 +12,7 @@ interface NumberInputProps extends Partial<PLabel> {
   classNames?: string;
   register: UseFormRegister<IFormInput>;
   errorName?: string;
+  addionalRules?: RegisterOptions<IFormInput, IFormInputKeys>;
 }
 
 const NumberInput = ({
@@ -23,6 +24,7 @@ const NumberInput = ({
   register,
   id,
   errorName,
+  addionalRules,
 }: NumberInputProps) => {
   return (
     <div
@@ -41,7 +43,7 @@ const NumberInput = ({
           disabled={disable}
           {...register(id, {
             required: true,
-            valueAsNumber: true,
+            valueAsNumber: true as any,
             validate: (
               item: number | TFormDynamicInput | TFormDynamicInput[]
             ) =>
@@ -50,6 +52,7 @@ const NumberInput = ({
                 : typeof item === "object"
                 ? item.value > 0 || `${errorName}`
                 : item > 0 || `${errorName}`,
+            ...addionalRules,
           })}
         />
         {suffix && <span className="ml-1">{suffix}</span>}
