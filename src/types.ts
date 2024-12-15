@@ -12,7 +12,6 @@ export enum EFormKeyName {
   "chargingPower" = "Charging power",
 }
 
-
 export type IFormInputKeys =
   | keyof IFormInput
   | `chargingPoints.${number}` // chargingPoints 배열의 항목
@@ -23,10 +22,15 @@ export type IFormInputKeys =
   | `chargingPower.${number}.id`;
 
 export type IFormInput = {
-  chargingPoints: Array<{ id: number; value: number }>;
+  chargingPoints: Array<TFormDynamicInput>;
   arrivalProbability: number;
   carConsumption: number;
-  chargingPower: Array<{ id: number; value: number }>;
+  chargingPower: Array<TFormDynamicInput>;
 };
 
 export const DEFAULT_POWER = 11;
+
+export interface TFormDynamicInput {
+  id: number;
+  value: number;
+}

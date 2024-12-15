@@ -16,6 +16,8 @@ const Inputs = () => {
     handleSubmit,
   } = useForm<IFormInput>({
     defaultValues: {
+      carConsumption: 18,
+      arrivalProbability: 100,
       chargingPoints: [
         {
           id: 1,
@@ -57,18 +59,17 @@ const Inputs = () => {
       )}
 
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex justify-between lg:flex-row flex-col gap-24 ">
+        <div className="flex justify-between lg:flex-row flex-col gap-20 ">
           <div>
             <Label name="Add Charging points" />
             <DynamicList register={register} control={control} />
           </div>
 
-          <div className="flex lg:flex-row flex-col gap-24">
+          <div className="flex lg:flex-row flex-col gap-20">
             <NumberInput
               name={EFormKeyName["carConsumption"]}
               id={EFormInput["carConsumption"]}
               suffix="kWh"
-              defaultValue={18}
               classNames={"col-start-2"}
               register={register}
               errorName={EFormKeyName["carConsumption"]}
@@ -78,7 +79,6 @@ const Inputs = () => {
               name={EFormKeyName["arrivalProbability"]}
               id={EFormInput["arrivalProbability"]}
               suffix={"%"}
-              defaultValue={100}
               register={register}
               errorName={EFormKeyName["arrivalProbability"]}
             />

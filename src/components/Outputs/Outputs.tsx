@@ -8,8 +8,10 @@ import ChargingInsights from "./ChargingInsights";
 
 const Outputs = () => {
   return (
-    <section>
-      <Collapse title="The Charging Value per charging point">
+    <section className="mt-24 pb-24">
+      <div className="font-semibold text-2xl mb-8">Simulator results</div>
+
+      <Collapse title="The charging value per charging point">
         <ChargingValueTable />
       </Collapse>
 

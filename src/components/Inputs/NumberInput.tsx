@@ -1,6 +1,6 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
-import { IFormInput, IFormInputKeys } from "types";
+import { IFormInput, IFormInputKeys, TFormDynamicInput } from "types";
 import Label, { PLabel } from "../Label";
 import { UseFormRegister } from "react-hook-form";
 
@@ -41,11 +41,9 @@ const NumberInput = ({
           disabled={disable}
           {...register(id, {
             required: true,
+            valueAsNumber: true,
             validate: (
-              item:
-                | number
-                | { id: number; value: number }
-                | { id: number; value: number }[]
+              item: number | TFormDynamicInput | TFormDynamicInput[]
             ) =>
               Array.isArray(item)
                 ? ""

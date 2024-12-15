@@ -1,11 +1,18 @@
-import { useDataContext } from "components/context/useDataContext";
+import useCalculate from "hooks/useCalculate";
 import React from "react";
 
 const TotalEnergy = () => {
-  const { data } = useDataContext();
-  console.log("result", data);
+  const { totalEnergy, formatNumberWithCommas } = useCalculate({});
 
-  return <div></div>;
+  if (typeof totalEnergy !== "number") {
+    return <div></div>;
+  }
+
+  return (
+    <div>
+      <span>Total energy charged</span>: {formatNumberWithCommas(totalEnergy)}
+    </div>
+  );
 };
 
 export default TotalEnergy;
