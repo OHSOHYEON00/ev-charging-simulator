@@ -20,7 +20,7 @@ const useCalculate = ({ runningHour = 24 }: { runningHour?: number }) => {
       )
       .reduce((a, b) => a + b);
 
-  const carArrivals = (data.carConsumption / 100) * 200;
+  const carArrivals = (data.arrivalProbability / 100) * 200; // Calculate based on 200 vehicles when at 100%
 
   const chargingEvents = Math.min(carArrivals, chargableCars);
   const totalEnergy = chargingEvents * data.carConsumption;
@@ -43,25 +43,28 @@ const useCalculate = ({ runningHour = 24 }: { runningHour?: number }) => {
       return Math.round((groupWeight / totalWeight) * chargingEvents); // Cars per group
     });
 
-    const result = carDistribution.map((carsInGroup, i) => {
-      const carsPerPoint = Math.floor(carsInGroup / pointNums[i]); // Cars per point
-      const remainder = carsInGroup % pointNums[i]; // Cars left over
+    const result = carDistribution
+      .map((carsInGroup, i) => {
+        const carsPerPoint = Math.floor(carsInGroup / pointNums[i]); // Cars per point
+        const remainder = carsInGroup % pointNums[i]; // Cars left over
 
-      // Calculate power consumed for each point
-      return Array(pointNums[i])
-        .fill(carsPerPoint)
-        .map((cars, index) => {
-          const adjustedCars = index < remainder ? cars + 1 : cars; // Distribute remainder
-          return {
-            powerPerPoint: powerPerPoint[i],
-            carsAssigned: adjustedCars,
-            powerConsumed: adjustedCars * data.carConsumption,
-          };
-        });
-    });
+        // Calculate power consumed for each point
+        return Array(pointNums[i])
+          .fill(carsPerPoint)
+          .map((cars, index) => {
+            const adjustedCars = index < remainder ? cars + 1 : cars; // Distribute remainder
+            return {
+              powerPerPoint: formatNumberWithCommas(powerPerPoint[i]),
+              carsAssigned: formatNumberWithCommas(adjustedCars),
+              powerConsumed: formatNumberWithCommas(
+                adjustedCars * data.carConsumption
+              ),
+            };
+          });
+      })
+      .flat();
 
-    // Flatten result to get point-by-point details
-    return result.flat();
+    return result;
   };
 
   return {

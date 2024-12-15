@@ -38,8 +38,8 @@ const Collapse = ({
 
       {/* Collapsible Content */}
       <div
-        className={`overflow-hidden transition-[max-height] duration-500 ease-in-out ${
-          isOpen ? "max-h-96" : "max-h-0"
+        className={` transition-[max-height] duration-500 ease-in-out ${
+          isOpen ? "max-h-96 overflow-auto" : "max-h-0 overflow-hidden"
         } bg-white px-8 text-base font-normal `}
       >
         <div className="pt-4">{children}</div>

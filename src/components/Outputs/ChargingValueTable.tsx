@@ -2,37 +2,53 @@ import useCalculate from "hooks/useCalculate";
 import React from "react";
 
 const ChargingValueTable = () => {
-  const { chargingValueTable } = useCalculate({});
+  const { chargingValueTable, formatNumberWithCommas } = useCalculate({});
   console.log(chargingValueTable);
 
   if (!chargingValueTable) {
     return <></>;
   }
 
+  const totalAssignedCar = chargingValueTable
+    .map((v) => +v.carsAssigned)
+    .reduce((a, v) => a + v);
+
+  const totalConsumedPower = chargingValueTable
+    .map((v) => +v.powerConsumed)
+    .reduce((a, v) => a + v);
+
   return (
     <div>
       <table className="min-w-full bg-white border border-gray-300">
-        <thead className="bg-gray-100">
+        <thead className="bg-gray-100 md:text-base text-sm">
           <tr>
-            <th className="px-6 py-3 text-left border-b">Charging Point</th>
-            <th className="px-6 py-3 text-left border-b">
-              Charging Power (kW)
+            <th className=" py-3 text-center border-b">Point</th>
+
+            <th className=" py-3 text-center border-b">
+              Charging Point Power (kW)
             </th>
-            <th className="px-6 py-3 text-left border-b">
-              Number of Vehicles Charged
+
+            <th className=" py-3 text-center border-b">Cars per Point</th>
+            <th className=" py-3 text-center border-b">
+              Energy Used (kW) per Point
             </th>
-            <th className="px-6 py-3 text-left border-b">Energy Used (kW)</th>
           </tr>
         </thead>
-        <tbody>
-          {/* {tableData.map((row, index) => (
+        <tbody className="text-center">
+          {chargingValueTable.map((row, index) => (
             <tr key={index} className="hover:bg-gray-50">
-              <td className="px-6 py-4 border-b">{row.chargingPoint}</td>
-              <td className="px-6 py-4 border-b">{row.chargingPower}</td>
-              <td className="px-6 py-4 border-b">{row.vehiclesCharged}</td>
-              <td className="px-6 py-4 border-b">{row.energyUsed}</td>
+              <td className="px-6 py-4 border-b">Point {index + 1}</td>
+              <td className="px-6 py-4 border-b">{row.powerPerPoint} kW</td>
+              <td className="px-6 py-4 border-b">{row.carsAssigned}</td>
+              <td className="px-6 py-4 border-b">{row.powerConsumed} kW</td>
             </tr>
-          ))} */}
+          ))}
+          <tr>
+            <td>Total</td>
+            <td></td>
+            <td>{formatNumberWithCommas(totalAssignedCar)}</td>
+            <td>{formatNumberWithCommas(totalConsumedPower)} kW</td>
+          </tr>
         </tbody>
       </table>
     </div>
