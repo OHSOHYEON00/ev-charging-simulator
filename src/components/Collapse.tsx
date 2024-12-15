@@ -4,12 +4,14 @@ import DirectionIcon from "assets/direction.png";
 interface PCollapse {
   title: string;
   defaultOpen?: boolean;
+  maxH?: "max-h-96" | "max-h-screen";
 }
 
 const Collapse = ({
   children,
   defaultOpen = false,
   title,
+  maxH = "max-h-screen",
 }: React.PropsWithChildren<PCollapse>) => {
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
 
@@ -39,7 +41,7 @@ const Collapse = ({
       {/* Collapsible Content */}
       <div
         className={` transition-[max-height] duration-500 ease-in-out ${
-          isOpen ? "max-h-96 overflow-auto" : "max-h-0 overflow-hidden"
+          isOpen ? `${maxH} overflow-auto` : "max-h-0 overflow-hidden"
         } bg-white px-8 text-base font-normal `}
       >
         <div className="pt-4">{children}</div>

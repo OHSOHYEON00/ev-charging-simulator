@@ -35,7 +35,6 @@ const Inputs = () => {
   });
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
     setData(data);
   };
 
@@ -43,7 +42,6 @@ const Inputs = () => {
     (err) => ({ name: err, type: errors[err]?.type })
   );
 
-  console.log("errors", errorList);
   return (
     <section>
       <div className="font-semibold text-2xl mb-4">Input parameters</div>

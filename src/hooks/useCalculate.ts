@@ -67,11 +67,43 @@ const useCalculate = ({ runningHour = 24 }: { runningHour?: number }) => {
     return result;
   };
 
+  const pointWithPower = data.chargingPoints.map((p, index) => ({
+    point: p.value,
+    power: data.chargingPower[index].value,
+  }));
+
+  // Remove duplicated point which has same power
+  const totalPointWithPower = pointWithPower.reduce(
+    (acc: { power: number; point: number }[], current) => {
+      const existing = acc.find((item) => item.power === current.power);
+      if (existing) {
+        existing.point += current.point;
+      } else {
+        acc.push({ power: current.power, point: current.point });
+      }
+      return acc;
+    },
+    []
+  );
+
   return {
     chargingEvents: chargingEvents,
     totalEnergy: totalEnergy,
     formatNumberWithCommas,
     chargingValueTable: calculatePowerDistribution(),
+    inputInfo: {
+      totalPointWithPower,
+      carConsumption: data.carConsumption,
+      arrivalMulti: carArrivals,
+    },
+    dailyPerformance: {
+      chargingEvents,
+      chargeTime: totalPointWithPower.map((p, i) => ({
+        kw: p.power,
+        time: (data.carConsumption / p.power).toFixed(2),
+      })),
+      totalEnergy: formatNumberWithCommas(totalEnergy),
+    },
   };
 };
 
