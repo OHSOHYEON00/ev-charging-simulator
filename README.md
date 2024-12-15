@@ -49,6 +49,9 @@ Or with Yarn:
 yarn start
 ```
 
+3. When running locally, please navigate to the following address.
+`http://localhost:8888/`
+
 ## Folder Structure
 The project follows a simple structure:
 
