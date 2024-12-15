@@ -3,13 +3,12 @@ import Label from "components/Label";
 import NumberInput from "components/Inputs/NumberInput";
 import React from "react";
 import { DEFAULT_POWER, EFormInput, EFormKeyName, IFormInput } from "types";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useDataContext } from "components/context/useDataContext";
 
-interface PInputs {
-  onValid: (data: IFormInput) => void;
-}
+const Inputs = () => {
+  const { setData } = useDataContext();
 
-const Inputs = ({ onValid }: PInputs) => {
   const {
     control,
     register,
@@ -33,6 +32,11 @@ const Inputs = ({ onValid }: PInputs) => {
     mode: "onSubmit",
   });
 
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    console.log(data);
+    setData(data);
+  };
+
   const errorNameList: (keyof typeof EFormKeyName)[] = Object.keys(
     errors
   ) as (keyof typeof EFormKeyName)[];
@@ -52,7 +56,7 @@ const Inputs = ({ onValid }: PInputs) => {
         </div>
       )}
 
-      <form className="flex flex-col" onSubmit={handleSubmit(onValid)}>
+      <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex justify-between lg:flex-row flex-col gap-24 ">
           <div>
             <Label name="Add Charging points" />

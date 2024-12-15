@@ -1,16 +1,12 @@
 import React from "react";
 import Inputs from "../components/Inputs/Inputs";
-import { SubmitHandler } from "react-hook-form";
-import { IFormInput } from "types";
+import Outputs from "components/Outputs/Outputs";
 
 const Simulator = () => {
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
-  };
-
   return (
     <div>
-      <Inputs onValid={onSubmit} />
+      <Inputs />
+      <Outputs />
     </div>
   );
 };
