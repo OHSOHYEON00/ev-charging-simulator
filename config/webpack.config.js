@@ -51,13 +51,13 @@ module.exports = {
     preferRelative: true,
   },
   devServer: {
-    hot: true, // HMR 활성화
+    hot: true, // Activate HMR
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "../public/index.html"),
     }),
-    new ReactRefreshWebpackPlugin(), // React Refresh 활성화
+    new ReactRefreshWebpackPlugin(), // Activate React Refresh
   ],
 };
 
