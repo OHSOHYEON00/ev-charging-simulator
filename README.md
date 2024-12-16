@@ -5,6 +5,14 @@ This project provides a simulation tool for a shop owner to estimate the total e
 
 The goal is to create an input form for simulation parameters and display the results in an easy-to-understand and visually appealing way.
 
+## What I focused
+
+During the development process, I focused on the following aspects:
+
+- **Usability**: I designed the UX to ensure that the service is intuitive and easy to use.
+- **Custom Hook**: I created a separate hook (`useCalculate`) for calculating results, allowing the result display component to focus solely on UI, thus maintaining a clear separation of concerns.
+- **Common Components**: To facilitate the management of repetitive styles and components, I developed common components.
+
 
 ## Features
 - Input Parameters:
